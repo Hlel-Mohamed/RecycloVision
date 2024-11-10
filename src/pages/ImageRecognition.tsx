@@ -4,11 +4,21 @@ import * as mobilenet from "@tensorflow-models/mobilenet";
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
 
+/**
+ * Type definition for a recyclable item.
+ */
 type RecyclableItem = {
+    /** The name of the recyclable item. */
     name: string;
+    /** The points awarded for the recyclable item. */
     points: number;
 };
 
+/**
+ * ImageRecognition component handles image upload, camera capture, and image recognition using MobileNet model.
+ * It allows users to identify recyclable items in images and keeps track of identified items and points.
+ * @component
+ */
 function ImageRecognition() {
     const [isModelLoading, setIsModelLoading] = useState(false);
     const [model, setModel] = useState<mobilenet.MobileNet | null>(null);
@@ -25,6 +35,11 @@ function ImageRecognition() {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const webcamRef = useRef<Webcam | null>(null);
 
+    /**
+     * Loads the MobileNet model and sets the backend to WebGL.
+     * @async
+     * @function
+     */
     const loadModel = async () => {
         setIsModelLoading(true);
         try {
@@ -39,12 +54,22 @@ function ImageRecognition() {
         }
     };
 
+    /**
+     * Fetches the list of recyclable items from a JSON file.
+     * @async
+     * @function
+     */
     const loadItems = async () => {
         const response = await fetch('/recyclableItems.json');
         const data = await response.json();
         setItems(data);
     };
 
+    /**
+     * Handles image upload and sets the image URL.
+     * @function
+     * @param {React.ChangeEvent<HTMLInputElement>} e - The change event from the file input.
+     */
     const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { files } = e.target;
         if (files && files.length > 0) {
@@ -55,6 +80,10 @@ function ImageRecognition() {
         }
     };
 
+    /**
+     * Captures an image from the webcam and sets the image URL.
+     * @function
+     */
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current?.getScreenshot();
         if (imageSrc) {
@@ -62,6 +91,11 @@ function ImageRecognition() {
         }
     }, [webcamRef]);
 
+    /**
+     * Identifies the objects in the uploaded or captured image using the MobileNet model.
+     * @async
+     * @function
+     */
     const identify = async () => {
         if (imageURL && history.includes(imageURL)) {
             setMessage("Already identified");
@@ -86,6 +120,11 @@ function ImageRecognition() {
         }
     };
 
+    /**
+     * Handles the click event on a guess and updates the total points and selected guesses.
+     * @function
+     * @param {string} guess - The class name of the guessed item.
+     */
     const handleGuessClick = (guess: string) => {
         const selectedItem = results.find(result => result.className === guess);
         if (selectedItem) {
@@ -95,6 +134,10 @@ function ImageRecognition() {
         }
     };
 
+    /**
+     * Loads the model and items when the component mounts.
+     * @function
+     */
     useEffect(() => {
         loadModel();
         loadItems();
@@ -122,17 +165,18 @@ function ImageRecognition() {
                         onClick={() => setIsCameraActive(!isCameraActive)}>
                     {isCameraActive ? 'Stop Camera' : 'Start Camera'}
                 </button>
-                {isCameraActive && (
-                    <>
-                        <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" className="w-full mb-4"/>
-                        <button className="btn bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none mb-4"
-                                onClick={capture}>Capture Image
-                        </button>
-                    </>
-                )}
+
             </div>
             <div className="flex flex-row items-start w-full max-w-lg">
                 <div className="flex flex-col items-center w-full">
+                    {isCameraActive && (
+                        <>
+                            <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" className="w-full mb-4"/>
+                            <button className="btn bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none mb-4"
+                                    onClick={capture}>Capture Image
+                            </button>
+                        </>
+                    )}
                     {imageURL && <img src={imageURL} alt="Upload Preview" crossOrigin="anonymous" ref={imageRef}
                                       className="w-full mb-4"/>}
                     {message && <div className="text-red-500 mb-4">{message}</div>}
@@ -182,7 +226,6 @@ function ImageRecognition() {
                     </div>
                 </div>
             )}
-
         </div>
     );
 }

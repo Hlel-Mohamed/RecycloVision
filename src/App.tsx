@@ -9,6 +9,7 @@ import Sidebar from "./components/Sidebar"
 import Authcontext from "./utils/context"
 import { useState } from "react"
 import ImageRecognition from "./pages/ImageRecognition.tsx";
+import ProtectedRoute from "./utils/protectedRoute.tsx"
 
 function Layout() {
   return (
@@ -62,9 +63,9 @@ function App() {
         {
           path: "/",
           element: (
-            //<ProtectedRoute allowedRoles={["none"]}>
+            <ProtectedRoute allowedRoles={["Recycler"]}>
               <Main />
-            //</ProtectedRoute>
+            </ProtectedRoute>
           ),
           children: [
             {
@@ -76,9 +77,9 @@ function App() {
             {
               path: "/users",
               element: (
-                //<ProtectedRoute allowedRoles={["Admin"]}>
+                <ProtectedRoute allowedRoles={["Admin"]}>
                   <Users />
-                //</ProtectedRoute>
+                </ProtectedRoute>
               ),
             },
             { path: "/me", element: <div>User Detail</div> },
