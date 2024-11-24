@@ -1,5 +1,5 @@
-import {useContext, useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Authcontext from "../utils/context";
 import User from "../services/users";
 import toast from "react-hot-toast";
@@ -19,22 +19,29 @@ const Profile = () => {
     const [lastName, setLastName] = useState(user.name.split(" ")[1]);
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
+    const [walletPoints, setWalletPoints] = useState(0);
 
     useEffect(() => {
         const fetchUserData = async () => {
+            const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
+            if (!storedUser.id) {
+                console.error("User ID is undefined");
+                return;
+            }
             try {
-                console.log("Fetching user data for ID:", user.id); // Debug log
-                const userData = await User.getUserById(user.id);
-                console.log("Fetched user data:", userData); // Debug log
+                const userData = await User.getUserById(storedUser.id);
+                setFirstName(userData.firstName);
+                setLastName(userData.lastName);
                 setPhone(userData.phone);
                 setEmail(userData.email);
+                setWalletPoints(userData.walletPoints);
             } catch (error) {
-                console.error("Error fetching user data:", error); // Debug log
-                //toast.error("Failed to fetch user data");
+                console.error("Error fetching user data:", error);
+                toast.error("Failed to fetch user data");
             }
         };
         fetchUserData();
-    }, [user.id]);
+    }, []);
 
     const handleUpdate = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -51,9 +58,9 @@ const Profile = () => {
             };
             await User.updateUser(updatedUser);
             toast.success("Profile updated successfully");
-            context.login(updatedUser); // Update context with new user data
+            context.login(updatedUser);
         } catch (error) {
-            console.error("Error updating profile:", error); // Debug log
+            console.error("Error updating profile:", error);
             toast.error("Failed to update profile");
         }
     };
@@ -117,6 +124,12 @@ const Profile = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
+                        </div>
+                        <div className="form-control">
+                            <label className="label !pb-[0.25rem]">
+                                <span className="label-text">Wallet Points</span>
+                            </label>
+                            {walletPoints}
                         </div>
                         <div className="form-control mt-6">
                             <button className="btn btn-primary" type="submit">

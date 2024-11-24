@@ -137,10 +137,12 @@ function ImageRecognition() {
 
 
     const submitForApproval = async () => {
+        const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
         const submission = {
             items: selectedGuesses,
             images: history,
             points: totalPoints,
+            userId: storedUser,
         };
 
         try {

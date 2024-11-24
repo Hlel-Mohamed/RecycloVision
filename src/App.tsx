@@ -92,9 +92,17 @@ function App() {
                                 </ProtectedRoute>
                             ),
                         },
-                        {path: "/me", element: <Profile/>},
+                        {
+                            path: "/me",
+                            element: <Profile/>
+                        },
                         {path: "/cart", element: <div>Cart</div>},
-                        {path: "/image-recognition", element: (<ImageRecognition/>)},
+                        {
+                            path: "/image-recognition",
+                            element: (
+                                <ImageRecognition/>
+                            )
+                        },
                         {path: "/unauthorized", element: <div>Unauthorized</div>},
                     ],
                 },

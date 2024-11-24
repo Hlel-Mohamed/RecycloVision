@@ -1,4 +1,3 @@
-// src/pages/Submissions.tsx
 import { useState, useEffect } from 'react';
 import SubmissionService from '../services/submission';
 
@@ -8,6 +7,10 @@ type Submission = {
     images: string[];
     points: number;
     status: string;
+    user: {
+        firstName: string;
+        lastName: string;
+    };
 };
 
 function AdminSubmissions() {
@@ -70,7 +73,7 @@ function AdminSubmissions() {
             <table className="table-auto w-full">
                 <thead>
                 <tr>
-                    <th className="px-4 py-2">ID</th>
+                    <th className="px-4 py-2">Submitted By</th>
                     <th className="px-4 py-2">Items</th>
                     <th className="px-4 py-2">Images</th>
                     <th className="px-4 py-2">Points</th>
@@ -81,27 +84,29 @@ function AdminSubmissions() {
                 <tbody>
                 {submissions.map((submission) => (
                     <tr key={submission.id}>
-                        <td className="border px-4 py-2">{submission.id}</td>
+                        <td className="border px-4 py-2">{submission.user.firstName} {submission.user.lastName}</td>
                         <td className="border px-4 py-2">{submission.items.join(', ')}</td>
                         <td className="border px-4 py-2">
                             {submission.images.map((image, index) => (
-                                <img key={index} src={image} alt={`Submission ${submission.id} Image ${index + 1}`} className="w-16 h-16 object-cover mr-2" />
+                                <img key={index} src={image} alt={`Submission ${submission.id} Image ${index + 1}`}
+                                     className="w-16 h-16 object-cover mr-2"/>
                             ))}
                         </td>
                         <td className="border px-4 py-2">{submission.points}</td>
                         <td className="border px-4 py-2">{submission.status}</td>
+
                         <td className="border px-4 py-2">
                             <button
                                 className="btn bg-green-500 text-white mr-2"
                                 onClick={() => approveSubmission(submission.id)}
-                                disabled={submission.status === 'Approved'}
+                                disabled={submission.status !== 'Pending'}
                             >
                                 Approve
                             </button>
                             <button
                                 className="btn bg-red-500 text-white"
                                 onClick={() => rejectSubmission(submission.id)}
-                                disabled={submission.status === 'Rejected'}
+                                disabled={submission.status !== 'Pending'}
                             >
                                 Reject
                             </button>
