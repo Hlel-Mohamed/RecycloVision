@@ -4,17 +4,32 @@ import auth from "../services/auth"
 import {useNavigate} from "react-router-dom"
 import Authcontext from "../utils/context"
 
+/**
+ * Login component for handling user authentication.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered component.
+ */
 const Login = () => {
     const context = useContext(Authcontext)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
 
+    /**
+     * useEffect hook to check if the user is already logged in.
+     * If a token is found in localStorage, navigate to the home page.
+     */
     useEffect(() => {
         localStorage.getItem("token") && navigate("/")
-    })
+    }, [navigate])
 
-    const handleLogin = async (e: any) => {
+    /**
+     * Handles the login form submission.
+     *
+     * @param {React.FormEvent<HTMLFormElement>} e - The form submission event.
+     */
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             await auth.login(email, password).then(res => {
@@ -23,10 +38,10 @@ const Login = () => {
                 localStorage.setItem("user", JSON.stringify(res.result))
                 context.login(res.result)
                 const role = res.result.role
-                role == "Admin"
+                role === "Admin"
                     ? navigate("/users")
-                    : role == "Recycler"
-                        ? navigate("/home")
+                    : role === "Recycler"
+                        ? navigate("/")
                         : navigate("/users")
             })
         } catch (error: any) {

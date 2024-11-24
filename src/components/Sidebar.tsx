@@ -36,11 +36,23 @@ const Sidebar = () => {
                     to="/users"
                     className={({isActive}) =>
                         isActive
-                            ? "btn bg-[#1f9d9a] text-primary-content shadow-none hover:bg-[#1f9d9a] !border-none"
-                            : "btn bg-transparent hover:text-primary-content hover:bg-[#1f9d9a] shadow-none !border-none"
+                            ? "btn bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
+                            : "btn bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
                     }
                 >
                     Users
+                </NavLink>
+            )}
+            {role === "Admin" && (
+                <NavLink
+                    to="/submissions"
+                    className={({isActive}) =>
+                        isActive
+                            ? "btn bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
+                            : "btn bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
+                    }
+                >
+                    Submissions
                 </NavLink>
             )}
         </div>

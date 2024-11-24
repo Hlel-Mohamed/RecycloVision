@@ -3,6 +3,7 @@ import Webcam from 'react-webcam';
 import * as mobilenet from "@tensorflow-models/mobilenet";
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
+import SubmissionService from '../services/submission';
 
 /**
  * Type definition for a recyclable item.
@@ -134,6 +135,23 @@ function ImageRecognition() {
         }
     };
 
+
+    const submitForApproval = async () => {
+        const submission = {
+            items: selectedGuesses,
+            images: history,
+            points: totalPoints,
+        };
+
+        try {
+            await SubmissionService.submit(submission);
+            setMessage('Submission successful. Awaiting admin approval.');
+        } catch (error) {
+            console.error('Error submitting for approval:', error);
+            setMessage('Submission failed. Please try again.');
+        }
+    };
+
     /**
      * Loads the model and items when the component mounts.
      * @function
@@ -211,6 +229,14 @@ function ImageRecognition() {
             <div className="mt-10 w-full max-w-2xl">
                 <h2 className="text-2xl font-bold mb-4">Total Points</h2>
                 <div className="text-lg">{totalPoints}</div>
+                {selectedGuesses.length > 0 && (
+                    <button
+                        className="btn bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none mt-4"
+                        onClick={submitForApproval}
+                    >
+                        Submit for Approval
+                    </button>
+                )}
             </div>
             {history.length > 0 && (
                 <div className="mt-10 w-full max-w-2xl">

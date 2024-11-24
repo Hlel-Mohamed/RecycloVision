@@ -278,7 +278,7 @@ const Users = () => {
                                         }}
                                     />
                                 </button>
-                                <button
+                                {/*<button
                                     onClick={() => {
                                         setMakeRecyclerId(user.id)
                                         if (makeRecyclerRef.current) {
@@ -287,7 +287,7 @@ const Users = () => {
                                     }}
                                 >
                                     <span>Make Recycler</span>
-                                </button>
+                                </button>*/}
                             </td>
                         </tr>
                     ))}
