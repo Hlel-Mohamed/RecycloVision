@@ -38,11 +38,7 @@ const Login = () => {
                 localStorage.setItem("user", JSON.stringify(res.result))
                 context.login(res.result)
                 const role = res.result.role
-                role === "Admin"
-                    ? navigate("/users")
-                    : role === "Recycler"
-                        ? navigate("/")
-                        : navigate("/users")
+                navigate("/")
             })
         } catch (error: any) {
             toast.error(error.response?.data.message || error.message)

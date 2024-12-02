@@ -65,7 +65,7 @@ function App() {
                 {
                     path: "/",
                     element: (
-                        <ProtectedRoute allowedRoles={["Recycler"]}>
+                        <ProtectedRoute allowedRoles={["Recycler","Admin"]}>
                             <Main/>
                         </ProtectedRoute>
                     ),
@@ -100,7 +100,9 @@ function App() {
                         {
                             path: "/image-recognition",
                             element: (
-                                <ImageRecognition/>
+                                <ProtectedRoute allowedRoles={["Recycler"]}>
+                                    <ImageRecognition/>
+                                </ProtectedRoute>
                             )
                         },
                         {path: "/unauthorized", element: <div>Unauthorized</div>},

@@ -19,7 +19,7 @@ const Sidebar = () => {
                     Home
                 </NavLink>
             )}
-            {(
+            {role == "Recycler" && (
                 <NavLink
                     to="/image-recognition"
                     className={({isActive}) =>
