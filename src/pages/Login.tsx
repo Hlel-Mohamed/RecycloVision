@@ -39,9 +39,9 @@ const Login = () => {
                 context.login(res.result)
                 const role = res.result.role
                 role === "Admin"
-                    ? navigate("/users")
+                    ? navigate("/dashboard")
                     : role === "Recycler"
-                        ? navigate("/")
+                        ? navigate("/home")
                         : navigate("/users")
             })
         } catch (error: any) {
