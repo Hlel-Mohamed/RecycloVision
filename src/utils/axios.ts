@@ -1,12 +1,14 @@
-import axios from "axios";
+import axios from "axios"
 
 const client = () =>
-    axios.create({
-        baseURL: import.meta.env.VITE_APP_API,
-        headers: {
-            "Content-Type": "application/json",
-            token: localStorage.getItem("token"),
-        },
-    });
+  axios.create({
+    baseURL: import.meta.env.VITE_APP_API
+      ? import.meta.env.VITE_APP_API
+      : "/api",
+    headers: {
+      "Content-Type": "application/json",
+      token: localStorage.getItem("token"),
+    },
+  })
 
-export default client;
+export default client
