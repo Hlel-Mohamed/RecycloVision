@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import {useState, useEffect, useRef, useCallback} from 'react';
 import Webcam from 'react-webcam';
 import * as mobilenet from "@tensorflow-models/mobilenet";
 import * as tf from '@tensorflow/tfjs';
@@ -72,7 +72,7 @@ function ImageRecognition() {
      * @param {React.ChangeEvent<HTMLInputElement>} e - The change event from the file input.
      */
     const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { files } = e.target;
+        const {files} = e.target;
         if (files && files.length > 0) {
             const url = URL.createObjectURL(files[0]);
             setImageURL(url);
@@ -108,7 +108,7 @@ function ImageRecognition() {
             const filteredResults = results
                 .map(result => {
                     const item = items.find(item => item.name.toLowerCase() === result.className.toLowerCase());
-                    return item ? { ...result, points: item.points } : null;
+                    return item ? {...result, points: item.points} : null;
                 })
                 .filter(result => result !== null) as Array<{ className: string; probability: number; points: number }>;
             setResults(filteredResults);
@@ -180,7 +180,7 @@ function ImageRecognition() {
     }
 
     return (
-        <div className="px-10 py-10 h-full w-full flex flex-col gap-5">
+        <div className="p-10 h-full w-full flex items-center flex-col gap-5">
             <h1 className="text-4xl font-bold mb-6">Image Identification</h1>
             <div className="flex flex-col items-center mb-6 w-full max-w-lg">
                 <input type="file" accept="image/*" capture className="hidden" onChange={uploadImage}
@@ -199,9 +199,11 @@ function ImageRecognition() {
                 <div className="flex flex-col items-center w-full">
                     {isCameraActive && (
                         <>
-                            <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" className="w-full mb-4"/>
-                            <button className="btn bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none mb-4"
-                                    onClick={capture}>Capture Image
+                            <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg"
+                                    className="w-full mb-4"/>
+                            <button
+                                className="btn bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none mb-4"
+                                onClick={capture}>Capture Image
                             </button>
                         </>
                     )}
