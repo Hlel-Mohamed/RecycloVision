@@ -4,6 +4,7 @@ import * as mobilenet from "@tensorflow-models/mobilenet";
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
 import SubmissionService from '../services/submission';
+import {toast} from "react-hot-toast";
 
 /**
  * Type definition for a recyclable item.
@@ -99,7 +100,7 @@ function ImageRecognition() {
      */
     const identify = async () => {
         if (imageURL && history.includes(imageURL)) {
-            setMessage("Already identified");
+            toast.error("Already identified");
             return;
         }
 
@@ -113,7 +114,7 @@ function ImageRecognition() {
                 .filter(result => result !== null) as Array<{ className: string; probability: number; points: number }>;
             setResults(filteredResults);
             if (filteredResults.length === 0) {
-                setMessage("No recyclable items recognized. Please try again.");
+                toast.error("No recyclable items recognized. Please try again.");
             } else {
                 setMessage(null);
                 setHistory([imageURL!, ...history]);
@@ -140,17 +141,26 @@ function ImageRecognition() {
         const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
         const submission = {
             items: selectedGuesses,
-            images: history,
+            images: history.map(image => {
+                const canvas = document.createElement('canvas');
+                const img = new Image();
+                img.src = image;
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                return canvas.toDataURL('image/jpeg');
+            }),
             points: totalPoints,
             userId: storedUser,
         };
 
         try {
             await SubmissionService.submit(submission);
-            setMessage('Submission successful. Awaiting admin approval.');
+            toast.success('Submission successful. Awaiting admin approval.');
         } catch (error) {
             console.error('Error submitting for approval:', error);
-            setMessage('Submission failed. Please try again.');
+            toast.error('Submission failed. Please try again.');
         }
     };
 

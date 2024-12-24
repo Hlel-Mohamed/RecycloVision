@@ -29,6 +29,9 @@
     "selenium-webdriver": "^4.26.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
     "@eslint/js": "^9.9.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@types/node": "^22.7.4",

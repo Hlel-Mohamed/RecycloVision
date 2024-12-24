@@ -31,7 +31,7 @@ const Sidebar = () => {
                     Dashboard
                 </NavLink>
             )}
-            {(
+            {role === "Recycler" && (
                 <NavLink
                     to="/image-recognition"
                     className={({isActive}) =>

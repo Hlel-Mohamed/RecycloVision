@@ -1,9 +1,9 @@
 import { FaUsers, FaRecycle, FaCheck, FaTimes } from "react-icons/fa";
 import { TfiCup } from "react-icons/tfi";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
+import {NavLink} from "react-router-dom";
 
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -72,9 +72,11 @@ const Dashboard = () => {
           <h3 className="text-xl font-semibold">{totalUsers}</h3>
         </div>
       </div>
-      <button className="btn bg-gray-400 text-white w-full mt-12"
-              onClick={() => window.location.href = '/users'}
-      >Manage Users</button>
+      <NavLink
+          to="/users"
+          className="btn bg-gray-400 text-white w-full mt-12"
+        >Manage Users</NavLink>
+
 
     </div>
 
@@ -94,12 +96,8 @@ const Dashboard = () => {
           <p>Rejected: {submissions.rejected}</p>
         </div>
       </div>
-      <button
-        className="btn btn-primary mt-4 w-full"
-        onClick={() => window.location.href = '/submissions'}
-      >
-        View Submissions
-      </button>
+        <NavLink to={"/submissions"} className="btn btn-primary mt-4 w-full">View Submissions</NavLink>
+
     </div>
     
 
