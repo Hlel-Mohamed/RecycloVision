@@ -30,7 +30,7 @@ const Home = () => {
   return (
     <div className="px-10 py-5 h-full w-full flex gap-8">
       <div className="w-3/4 flex flex-col gap-8">
-        <h1 className="text-4xl font-bold text-center text-green-700">Hey User, Welcome to Recyclovision</h1>
+        <h1 className="text-4xl font-bold text-center text-green-700">Welcome to Recyclovision</h1>
 
         <div>
           <h2 className="text-2xl font-semibold text-gray-800">Recycling Progress</h2>
@@ -47,7 +47,7 @@ const Home = () => {
         <div className="flex gap-8 flex-wrap">
 
         <div className="flex-2">
-    <div className="bg-gray-300 rounded-lg p-4 shadow-md flex gap-4 h-full">
+    <div className="bg-blue-400 text-white rounded-lg p-4 shadow-md flex gap-4 h-full">
       <TfiCup className="h-10 w-10 " />
       <div>
         <h3 className="text-xl">Coins</h3>
@@ -61,7 +61,7 @@ const Home = () => {
   </div>
 
   <div className="flex-2 ">
-    <div className="bg-gray-300  rounded-lg p-4 shadow-md  h-full">
+    <div className="bg-green-600 text-white rounded-lg p-4 shadow-md  h-full">
       <div className='flex gap-4'>
       <FaRecycle className="h-10 w-10" />
       <h3 className="text-xl">Ready to recycle?</h3> 
@@ -73,7 +73,7 @@ const Home = () => {
   </div>
 
   <div className="flex-1">
-    <div className="bg-gray-300  rounded-lg p-4 shadow-md flex gap-4 h-full">
+    <div className="bg-gray-400 text-white rounded-lg p-4 shadow-md flex gap-4 h-full">
       <FaRegUser className="h-10 w-10" />
       <div>
         <h3 className="text-xl">Manage your profile's points</h3>
@@ -103,7 +103,7 @@ const Home = () => {
       
       <div className="flex gap-4">
 
-      <div className="bg-gray-300 flex-1 gap-6  rounded-lg p-4 flex">
+      <div className="bg-yellow-400 flex-1 gap-6 text-white rounded-lg p-4 flex">
         <FaRegCirclePause className="h-10 w-10 mt-4" />
         <div className='flex flex-col items-center'>
         <p className="text-lg font-semibold">Pending</p>
@@ -111,7 +111,7 @@ const Home = () => {
         </div>
         </div>
 
-        <div className="bg-gray-300 flex-1 gap-6  rounded-lg p-4 flex">
+        <div className="bg-green-500 flex-1 gap-6 text-white rounded-lg p-4 flex">
         <IoIosArrowDropdown className="h-10 w-10 mt-4" />
         <div className='flex flex-col items-center'>
         <p className="text-lg font-semibold">Approved</p>
@@ -119,7 +119,7 @@ const Home = () => {
         </div>
         </div>
 
-        <div className="bg-gray-300 flex-1 gap-6  rounded-lg p-4 flex">
+        <div className="bg-red-500 flex-1 gap-6 text-white rounded-lg p-4 flex">
         <VscError className="h-10 w-10 mt-4" />
         <div className='flex flex-col items-center'>
         <p className="text-lg font-semibold">Rejected</p>

@@ -7,9 +7,9 @@ const Sidebar = () => {
     const role = context.user.role
     return (
         <div className="flex flex-col min-w-52 gap-10 h-full px-7 py-20 border-r-[1px] border-base-300">
-            {(
+            {role === "Recycler" &&(
                 <NavLink
-                    to="/"
+                    to="/home"
                     className={({isActive}) =>
                         isActive
                             ? "btn bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
@@ -19,7 +19,19 @@ const Sidebar = () => {
                     Home
                 </NavLink>
             )}
-            {role == "Recycler" && (
+             {role === "Admin" && (
+                <NavLink
+                    to="/dashboard"
+                    className={({isActive}) =>
+                        isActive
+                            ? "btn bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
+                            : "btn bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
+                    }
+                >
+                    Dashboard
+                </NavLink>
+            )}
+            {role === "Recycler" && (
                 <NavLink
                     to="/image-recognition"
                     className={({isActive}) =>
@@ -31,6 +43,7 @@ const Sidebar = () => {
                     Image Recognition
                 </NavLink>
             )}
+           
             {role === "Admin" && (
                 <NavLink
                     to="/users"

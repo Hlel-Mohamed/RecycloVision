@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import SubmissionService from '../services/submission';
+import {toast} from "react-hot-toast";
 
 type Submission = {
     id: string;
@@ -26,7 +27,7 @@ function AdminSubmissions() {
             setSubmissions(response);
         } catch (error) {
             console.error('Error fetching submissions:', error);
-            setMessage('Failed to fetch submissions. Please try again later.');
+            toast.error('Failed to fetch submissions. Please try again later.');
         }
     };
 
@@ -35,14 +36,14 @@ function AdminSubmissions() {
             const response = await SubmissionService.approve(id);
 
             if (response.message === 'Submission approved') {
-                setMessage('Submission approved successfully.');
+                toast.success('Submission approved successfully.');
                 await fetchSubmissions();
             } else {
-                setMessage('Failed to approve submission.');
+                toast.error('Failed to approve submission.');
             }
         } catch (error) {
             console.error('Error approving submission:', error);
-            setMessage('Failed to approve submission.');
+            toast.error('Failed to approve submission.');
         }
     };
 
@@ -51,14 +52,14 @@ function AdminSubmissions() {
             const response = await SubmissionService.reject(id);
 
             if (response.message === 'Submission rejected') {
-                setMessage('Submission rejected successfully.');
+                toast.success('Submission rejected successfully.');
                 await fetchSubmissions();
             } else {
-                setMessage('Failed to reject submission.');
+                toast.error('Failed to reject submission.');
             }
         } catch (error) {
             console.error('Error rejecting submission:', error);
-            setMessage('Failed to reject submission.');
+            toast.error('Failed to reject submission.');
         }
     };
 

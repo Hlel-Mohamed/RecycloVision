@@ -141,7 +141,16 @@ function ImageRecognition() {
         const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
         const submission = {
             items: selectedGuesses,
-            images: history,
+            images: history.map(image => {
+                const canvas = document.createElement('canvas');
+                const img = new Image();
+                img.src = image;
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                return canvas.toDataURL('image/jpeg');
+            }),
             points: totalPoints,
             userId: storedUser,
         };
