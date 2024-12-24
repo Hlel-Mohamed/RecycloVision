@@ -14,6 +14,7 @@ const Dashboard = () => {
     const [submissions, setSubmissions] = useState({pending: 0, approved: 0, rejected: 0});
     const [totalUsers, setTotalUsers] = useState(0);
     const [totalPoints, setTotalPoints] = useState(0);
+    const [userName, setUserName] = useState("");
     const [recyclingData, setRecyclingData] = useState([]);
     const [recentActivities, setRecentActivities] = useState<string[]>([]);
 
@@ -26,6 +27,9 @@ const Dashboard = () => {
                 const usersSummary = await DashboardService.getUsersSummary();
                 setTotalUsers(usersSummary.totalUsers);
                 setTotalPoints(usersSummary.totalPoints);
+
+                const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
+                setUserName(storedUser.firstName);
 
                 const recyclingStats = await DashboardService.getRecyclingStats();
                 setRecyclingData(recyclingStats);
@@ -68,7 +72,7 @@ const Dashboard = () => {
 
     return (
         <div className="px-5 py-4 h-full w-full">
-            <h1 className="text-3xl font-bold text-green-600 mb-3 text-center">Welcome Admin, manage and monitor with
+            <h1 className="text-3xl font-bold text-green-600 mb-3 text-center">Welcome {userName}, manage and monitor with
                 ease!</h1>
 
             <div className="flex gap-6">

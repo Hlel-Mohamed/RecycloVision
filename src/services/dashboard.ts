@@ -36,6 +36,15 @@ const DashboardService = {
             throw error;
         }
     },
+
+    async getTotalItemsByUser(userId: string) {
+        try {
+            const response = await client().get(`/api/submissions/total-items/${userId}`);
+            return response.data.totalItems;
+        } catch (error) {
+            throw error;
+        }
+    }
 };
 
 export default DashboardService;
