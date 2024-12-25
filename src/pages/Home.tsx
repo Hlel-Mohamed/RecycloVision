@@ -75,10 +75,10 @@ const Home = () => {
               <div>
                 <h3 className="text-xl">Coins</h3>
                 <p className="text-lg">{userCoins} coins</p>
-                <button className="btn btn-primary text-white mt-4 flex items-center gap-2 sm:w-auto mx-auto">
+                <NavLink to={"/shop"} className="btn btn-primary text-white mt-4 flex items-center gap-2 sm:w-auto mx-auto">
                   <FaArrowRight />
                   View Products
-                </button>
+                </NavLink>
               </div>
             </div>
           </div>

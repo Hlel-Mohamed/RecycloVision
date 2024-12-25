@@ -15,6 +15,7 @@ import Submissions from "./pages/Submissions";
 import Dashboard from "./pages/Dashboard.tsx"
 import Shop from "./pages/Shop.tsx"
 import Cart from "./pages/Cart.tsx"
+import {CartProvider} from "./utils/cartContext";
 
 function Layout() {
     return (
@@ -28,7 +29,6 @@ function Layout() {
 function Main() {
     return (
         <div className="flex h-screen justify-between">
-            <Sidebar/>
             <Outlet/>
         </div>
     )
@@ -79,11 +79,13 @@ function App() {
                         },
                         {
                             path: "/shop",
-                            element: <Shop/>,
+                            element:
+                                <Shop/>,
                         },
                         {
                             path: "/cart",
-                            element: <Cart/>,
+                            element:
+                                    <Cart/>,
                         },
                         {path: "/hr", element: <div>HR page</div>},
                         {path: "/admin", element: <div>admin page</div>},
@@ -115,7 +117,6 @@ function App() {
                             path: "/me",
                             element: <Profile/>
                         },
-                        {path: "/cart", element: <div>Cart</div>},
                         {
                             path: "/image-recognition",
                             element: (
@@ -134,8 +135,10 @@ function App() {
     return (
         <>
             <Authcontext.Provider value={{user, login, logout}}>
-                <Toaster/>
-                <RouterProvider router={router}/>
+                <CartProvider>
+                    <Toaster/>
+                    <RouterProvider router={router}/>
+                </CartProvider>
             </Authcontext.Provider>
         </>
     )
