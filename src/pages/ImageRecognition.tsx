@@ -29,7 +29,6 @@ function ImageRecognition() {
     const [history, setHistory] = useState<string[]>([]);
     const [isCameraActive, setIsCameraActive] = useState(false);
     const [selectedGuesses, setSelectedGuesses] = useState<string[]>([]);
-    const [message, setMessage] = useState<string | null>(null);
     const [totalPoints, setTotalPoints] = useState<number>(0);
     const [items, setItems] = useState<RecyclableItem[]>([]);
 
@@ -116,7 +115,6 @@ function ImageRecognition() {
             if (filteredResults.length === 0) {
                 toast.error("No recyclable items recognized. Please try again.");
             } else {
-                setMessage(null);
                 setHistory([imageURL!, ...history]);
             }
         }
@@ -211,7 +209,6 @@ function ImageRecognition() {
                     )}
                     {imageURL && <img src={imageURL} alt="Upload Preview" crossOrigin="anonymous" ref={imageRef}
                                       className="w-full mb-4"/>}
-                    {message && <div className="text-red-500 mb-4">{message}</div>}
                     {results.length > 0 && (
                         <div className="w-full">
                             {results.map((result) => (

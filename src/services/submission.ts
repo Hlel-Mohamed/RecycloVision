@@ -3,7 +3,7 @@ import client from '../utils/axios';
 const SubmissionService = {
     async submit(submission: { items: string[], images: string[], points: number }) {
         try {
-            const response = await client().post('/api/submit', submission);
+            const response = await client().post('/api/submissions/submit', submission);
             return response.data;
         } catch (error) {
             throw error;
@@ -12,7 +12,7 @@ const SubmissionService = {
 
     async getAll() {
         try {
-            const response = await client().get('/api/submissions');
+            const response = await client().get('/api/submissions/all');
             return response.data;
         } catch (error) {
             throw error;

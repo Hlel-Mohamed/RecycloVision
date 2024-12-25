@@ -16,7 +16,6 @@ type Submission = {
 
 function AdminSubmissions() {
     const [submissions, setSubmissions] = useState<Submission[]>([]);
-    const [message, setMessage] = useState<string | null>(null);
 
     const fetchSubmissions = async () => {
         try {
@@ -70,7 +69,6 @@ function AdminSubmissions() {
     return (
         <div className="px-10 py-10 h-full w-full flex flex-col gap-5">
             <h1 className="text-4xl font-bold mb-6">Admin Submissions</h1>
-            {message && <div className="text-red-500 mb-4">{message}</div>}
             <table className="table-auto w-full">
                 <thead>
                 <tr>
