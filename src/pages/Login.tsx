@@ -14,6 +14,11 @@ const Login = () => {
     localStorage.getItem("token") && navigate("/")
   }, [navigate])
 
+  /**
+   * Handles the login form submission.
+   *
+   * @param {React.FormEvent<HTMLFormElement>} e - The form submission event.
+   */
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
@@ -22,7 +27,8 @@ const Login = () => {
         localStorage.setItem("token", res.token)
         localStorage.setItem("user", JSON.stringify(res.result))
         context.login(res.result)
-        navigate("/")
+        const role = res.result.role
+        role === "Admin" ? navigate("/dashboard") : navigate("/home")
       })
     } catch (error: any) {
       toast.error(error.response?.data.message || error.message)

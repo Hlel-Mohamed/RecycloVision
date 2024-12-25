@@ -29,7 +29,6 @@ function ImageRecognition() {
     const [history, setHistory] = useState<string[]>([]);
     const [isCameraActive, setIsCameraActive] = useState(false);
     const [selectedGuesses, setSelectedGuesses] = useState<string[]>([]);
-    const [message, setMessage] = useState<string | null>(null);
     const [totalPoints, setTotalPoints] = useState<number>(0);
     const [items, setItems] = useState<RecyclableItem[]>([]);
 
@@ -116,7 +115,6 @@ function ImageRecognition() {
             if (filteredResults.length === 0) {
                 toast.error("No recyclable items recognized. Please try again.");
             } else {
-                setMessage(null);
                 setHistory([imageURL!, ...history]);
             }
         }
@@ -141,7 +139,16 @@ function ImageRecognition() {
         const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
         const submission = {
             items: selectedGuesses,
-            images: history,
+            images: history.map(image => {
+                const canvas = document.createElement('canvas');
+                const img = new Image();
+                img.src = image;
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                return canvas.toDataURL('image/jpeg');
+            }),
             points: totalPoints,
             userId: storedUser,
         };
@@ -202,7 +209,6 @@ function ImageRecognition() {
                     )}
                     {imageURL && <img src={imageURL} alt="Upload Preview" crossOrigin="anonymous" ref={imageRef}
                                       className="w-full mb-4"/>}
-                    {message && <div className="text-red-500 mb-4">{message}</div>}
                     {results.length > 0 && (
                         <div className="w-full">
                             {results.map((result) => (

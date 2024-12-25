@@ -12,6 +12,8 @@ import ImageRecognition from "./pages/ImageRecognition.tsx";
 import ProtectedRoute from "./utils/protectedRoute.tsx"
 import Profile from "./pages/Profile";
 import Submissions from "./pages/Submissions";
+import Dashboard from "./pages/Dashboard.tsx"
+import Shop from "./pages/Shop.tsx"
 
 function Layout() {
     return (
@@ -71,8 +73,12 @@ function App() {
                     ),
                     children: [
                         {
-                            path: "/",
+                            path: "/home",
                             element: <Home/>,
+                        },
+                        {
+                            path: "/shop",
+                            element: <Shop/>,
                         },
                         {path: "/hr", element: <div>HR page</div>},
                         {path: "/admin", element: <div>admin page</div>},
@@ -81,6 +87,14 @@ function App() {
                             element: (
                                 <ProtectedRoute allowedRoles={["Admin"]}>
                                     <Users/>
+                                </ProtectedRoute>
+                            ),
+                        },
+                        {
+                            path: "/dashboard",
+                            element: (
+                                <ProtectedRoute allowedRoles={["Admin"]}>
+                                    <Dashboard/>
                                 </ProtectedRoute>
                             ),
                         },

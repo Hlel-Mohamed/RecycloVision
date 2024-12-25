@@ -22,7 +22,14 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     if (userRole && !allowedRoles.includes(userRole)) {
       navigate("/unauthorized")
     }
-  }, [isAuthenticated, navigate])
+    if (window.location.pathname === "/") {
+      if (userRole === "Recycler") {
+        navigate("/home");
+      } else if (userRole === "Admin") {
+        navigate("/dashboard");
+      }
+    }
+  }, [isAuthenticated, navigate, userRole, allowedRoles])
   return children
 }
 

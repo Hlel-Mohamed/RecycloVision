@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom"
 const Signup = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [phone, setPhone] = useState("")
@@ -18,6 +19,14 @@ const Signup = () => {
 
     const handleSignup = async (e: any) => {
         e.preventDefault()
+        if (phone.length !== 8) {
+            toast.error("Phone number must be exactly 8 digits");
+            return;
+        }
+        if (password !== confirmPassword) {
+            toast.error("Passwords do not match");
+            return;
+        }
         try {
             const response = await register.createUser(
                 firstName,
@@ -118,6 +127,7 @@ const Signup = () => {
                                 placeholder="password"
                                 className="input input-bordered"
                                 required
+                                onChange={e => setConfirmPassword(e.target.value)}
                             />
                         </div>
 

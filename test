@@ -1,0 +1,190 @@
+import React from 'react';
+import { TfiCup } from "react-icons/tfi";
+import { FaArrowRight } from "react-icons/fa";
+import { FaRecycle } from "react-icons/fa";
+import { FaRegCirclePause } from "react-icons/fa6";
+import { FaRegPauseCircle } from "react-icons/fa";
+import { VscError } from "react-icons/vsc";
+import { IoIosArrowDropdown } from "react-icons/io";
+import { MdOutlineVerifiedUser } from "react-icons/md";
+import { LuUserSquare2 } from "react-icons/lu";
+import { FaRegUser } from "react-icons/fa";
+
+
+
+
+
+
+
+const Home = () => {
+
+  const userCoins = 120; 
+  const recycledItems = 35; 
+  const goal = 100; 
+  const recentActivities = [
+    { id: 1, material: 'Plastic', reward: 10, date: '2024-11-28', image: 'image1.jpg' },
+    { id: 2, material: 'Metal', reward: 15, date: '2024-11-27', image: 'image2.jpg' },
+    { id: 3, material: 'Glass', reward: 5, date: '2024-11-26', image: 'image3.jpg' },
+  ];
+
+  return (
+    <div className="px-10 py-5 h-full w-full flex gap-8">
+      <div className="w-3/4 flex flex-col gap-8">
+        <h1 className="text-4xl font-bold text-center text-green-700">Welcome to Recyclovision</h1>
+
+        <div>
+          <h2 className="text-2xl font-semibold text-gray-800">Recycling Progress</h2>
+          <div className="mt-4">
+            <p className="text-lg text-gray-700 mb-2">You have recycled {recycledItems} items</p>
+            <progress className="progress progress-success w-full" value={recycledItems} max={goal}></progress>
+            <p className="mt-2 text-sm text-gray-500">Goal: {goal} items</p>
+          </div>
+        </div>
+
+       
+
+
+        <div className="flex gap-8 flex-wrap">
+
+        <div className="flex-2">
+    <div className="bg-blue-400 text-white rounded-lg p-4 shadow-md flex gap-4 h-full">
+      <TfiCup className="h-10 w-10 " />
+      <div>
+        <h3 className="text-xl">Coins</h3>
+        <p className="text-lg">{userCoins} coins</p>
+        <button className="btn btn-primary text-white mt-4 flex items-center gap-2 sm:w-auto mx-auto">
+          <FaArrowRight  />
+          View Products
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div className="flex-2 ">
+    <div className="bg-green-600 text-white rounded-lg p-4 shadow-md  h-full">
+      <div className='flex gap-4'>
+      <FaRecycle className="h-10 w-10" />
+      <h3 className="text-xl">Ready to recycle?</h3> 
+      </div>
+      <button className="btn btn-success text-white mt-4 flex items-center gap-2 sm:w-auto mx-auto">
+          Image Recognition
+        </button>
+    </div>
+  </div>
+
+  <div className="flex-1">
+    <div className="bg-gray-400 text-white rounded-lg p-4 shadow-md flex gap-4 h-full">
+      <FaRegUser className="h-10 w-10" />
+      <div>
+        <h3 className="text-xl">Manage your profile's points</h3>
+        <button 
+          className="btn bg-gray-700 border-none  text-white mt-8 flex items-center gap-2 sm:w-auto mx-auto"
+          
+        >
+          Go to Profile
+        </button>
+      </div>
+    </div>
+  </div>
+
+  
+
+ 
+
+
+</div>
+
+        
+ 
+
+    <div className="flex-1">
+    <div className="bg-blue-100 rounded-lg p-4 shadow-md">
+      <h2 className="text-xl text-2xl font-semibold mb-4">Submission Status</h2>
+      
+      <div className="flex gap-4">
+
+      <div className="bg-yellow-400 flex-1 gap-6 text-white rounded-lg p-4 flex">
+        <FaRegCirclePause className="h-10 w-10 mt-4" />
+        <div className='flex flex-col items-center'>
+        <p className="text-lg font-semibold">Pending</p>
+        <p className="text-2xl font-bold">0</p>
+        </div>
+        </div>
+
+        <div className="bg-green-500 flex-1 gap-6 text-white rounded-lg p-4 flex">
+        <IoIosArrowDropdown className="h-10 w-10 mt-4" />
+        <div className='flex flex-col items-center'>
+        <p className="text-lg font-semibold">Approved</p>
+        <p className="text-2xl font-bold">0</p>
+        </div>
+        </div>
+
+        <div className="bg-red-500 flex-1 gap-6 text-white rounded-lg p-4 flex">
+        <VscError className="h-10 w-10 mt-4" />
+        <div className='flex flex-col items-center'>
+        <p className="text-lg font-semibold">Rejected</p>
+        <p className="text-2xl font-bold">0</p>
+        </div>
+        </div>
+
+
+      </div>
+    </div>
+    </div>
+
+      </div>
+
+      <div className="w-1/4">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Special Events</h2>
+        <div className="alert alert-info mb-4">
+          <div className="flex-1">
+            <label>
+              <span>Special Christmas Recycling Event! Double your coins during this period.</span>
+            </label>
+          </div>
+        </div>
+        <div className="bg-green-100 p-2 rounded-md shadow">
+          <h3 className="text-lg font-medium text-gray-700">Promotions</h3>
+          <p className="text-gray-600">Get 20% off eco-friendly products this month!</p>
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-3 mt-3">Recent Activities</h2>
+          <div className="flex flex-col gap-2">
+            {recentActivities.map((activity) => (
+              <div
+                key={activity.id}
+                className="flex items-center gap-4 bg-gray-100 p-4 rounded-md shadow"
+              >
+                <img
+                  src={activity.image}
+                  alt={activity.material}
+                  className="w-16 h-16 object-cover rounded-md"
+                />
+                <div>
+                  <p className="text-lg text-gray-700 font-medium">
+                    Material: <span className="text-gray-900">{activity.material}</span>
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    Reward: <span className="text-green-600">{activity.reward} coins</span>
+                  </p>
+                  <p className="text-sm text-gray-500">Date: {activity.date}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Home;
+
+/*
+        <div>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Ready to recycle?</h2>
+          <button className="btn btn-primary w-full sm:w-auto mx-auto">Scan a Bottle</button>
+        </div>
+
+*/
