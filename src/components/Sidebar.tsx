@@ -33,6 +33,19 @@ const Sidebar = () => {
                 </NavLink>
                 
             )}
+            {role === "Recycler" &&(
+                <NavLink
+                    to="/cart"
+                    className={({isActive}) =>
+                        isActive
+                            ? "btn bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
+                            : "btn bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
+                    }
+                >
+                    Cart
+                </NavLink>
+                
+            )}
              {role === "Admin" && (
                 <NavLink
                     to="/dashboard"
