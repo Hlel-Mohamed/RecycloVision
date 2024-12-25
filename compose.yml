@@ -1,6 +1,6 @@
 services:
   backend:
-    image: backend
+    image: 381491905102.dkr.ecr.us-east-1.amazonaws.com/recyclovision/backend:latest
     container_name: backend
     ports:
       - "4000:3000"
@@ -11,7 +11,7 @@ services:
       - prometheus
 
   frontend:
-    image: frontend
+    image: 381491905102.dkr.ecr.us-east-1.amazonaws.com/recyclovision/frontend:latest
     container_name: frontend
     ports:
       - "5000:80"

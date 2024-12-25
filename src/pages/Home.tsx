@@ -136,9 +136,7 @@ const Home = () => {
 
         <div className="flex-1">
           <div className="bg-blue-100 rounded-lg p-4 shadow-md">
-            <h2 className="text-xl text-2xl font-semibold mb-4">
-              Submission Status
-            </h2>
+            <h2 className="text-xl font-semibold mb-4">Submission Status</h2>
             <div className="flex gap-4">
               <div className="bg-gray-300 flex-1 gap-6  rounded-lg p-4 flex">
                 <FaRegPauseCircle className="h-10 w-10 mt-4" />
