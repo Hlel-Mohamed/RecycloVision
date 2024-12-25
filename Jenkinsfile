@@ -8,10 +8,10 @@ pipeline {
       }
       steps {
         echo 'logging in ...'
-          sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 381491905102.dkr.ecr.us-east-1.amazonaws.com'
+        sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 381491905102.dkr.ecr.us-east-1.amazonaws.com'
         }
       }
-    }
+    
 
     stage('building docker image') {
       when {
@@ -23,7 +23,7 @@ pipeline {
       }
     }
 
-    stage ('tagging image') {
+    stage('tagging image') {
       when {
         branch "devops"
       }
@@ -33,12 +33,12 @@ pipeline {
       }
     }
 
-    stage ('pushing image') {
+    stage('pushing image') {
       when {
         branch "devops"
       }
       steps {
-        echo 'pushing ...'
+        echo 'pushing to registry ...'
         sh 'docker push 381491905102.dkr.ecr.us-east-1.amazonaws.com/recyclovision/frontend:latest'
       }
     }
@@ -46,9 +46,10 @@ pipeline {
   post {
     always {
       echo 'This will always run' 
-      echo 'Deploying Recylovision...'
-      sh 'docker compose --project-name Recylovision up -d'
-      echo 'Recylovision Deployed'
+      echo 'Deploying Recyclovision...'
+      sh 'docker compose --project-name recyclovision up -d'
+      echo 'Recyclovision Deployed'
     }
   }
 }
+  
