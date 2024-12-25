@@ -47,7 +47,7 @@ pipeline {
     always {
       echo 'This will always run' 
       echo 'Deploying Recyclovision...'
-      sh 'docker compose --project-name recyclovision up -d'
+      sh 'docker compose --project-name recyclovision --env-file ~/.env up -d'
       echo 'Recyclovision Deployed'
     }
   }
