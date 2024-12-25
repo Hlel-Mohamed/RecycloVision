@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import Submissions from "./pages/Submissions";
 import Dashboard from "./pages/Dashboard.tsx"
 import Shop from "./pages/Shop.tsx"
+import Cart from "./pages/Cart.tsx"
 
 function Layout() {
     return (
@@ -79,6 +80,10 @@ function App() {
                         {
                             path: "/shop",
                             element: <Shop/>,
+                        },
+                        {
+                            path: "/cart",
+                            element: <Cart/>,
                         },
                         {path: "/hr", element: <div>HR page</div>},
                         {path: "/admin", element: <div>admin page</div>},
