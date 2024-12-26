@@ -7,32 +7,6 @@ const Sidebar = () => {
     const role = context.user.role
     return (
         <div className="flex flex-col min-w-52 gap-10 h-full px-7 py-20 border-r-[1px] border-base-300">
-            {role === "Recycler" &&(
-                <NavLink
-                    to="/home"
-                    className={({isActive}) =>
-                        isActive
-                            ? "btn bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
-                            : "btn bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
-                    }
-                >
-                    Home
-                </NavLink>
-                
-            )}
-            {role === "Recycler" &&(
-                <NavLink
-                    to="/shop"
-                    className={({isActive}) =>
-                        isActive
-                            ? "btn bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
-                            : "btn bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
-                    }
-                >
-                    Shop
-                </NavLink>
-                
-            )}
              {role === "Admin" && (
                 <NavLink
                     to="/dashboard"
@@ -45,19 +19,6 @@ const Sidebar = () => {
                     Dashboard
                 </NavLink>
             )}
-            {role === "Recycler" && (
-                <NavLink
-                    to="/image-recognition"
-                    className={({isActive}) =>
-                        isActive
-                            ? "btn bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
-                            : "btn bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
-                    }
-                >
-                    Image Recognition
-                </NavLink>
-            )}
-           
             {role === "Admin" && (
                 <NavLink
                     to="/users"
@@ -80,6 +41,18 @@ const Sidebar = () => {
                     }
                 >
                     Submissions
+                </NavLink>
+            )}
+            {role === "Admin" && (
+                <NavLink
+                    to="/orders"
+                    className={({isActive}) =>
+                        isActive
+                            ? "btn bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
+                            : "btn bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
+                    }
+                >
+                    Orders
                 </NavLink>
             )}
         </div>

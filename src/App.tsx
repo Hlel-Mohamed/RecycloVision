@@ -6,6 +6,7 @@ import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import Users from "./pages/users"
 import MySubmissions from "./pages/MySubmissions"
+import Orders from "./pages/Orders"
 import Sidebar from "./components/Sidebar"
 import Authcontext from "./utils/context"
 import {useContext, useState} from "react"
@@ -106,6 +107,14 @@ function App() {
                             element: (
                                 <ProtectedRoute allowedRoles={["Recycler"]}>
                                     <MySubmissions />
+                                </ProtectedRoute>
+                            ),
+                        },
+                        {
+                            path: "/orders",
+                            element: (
+                                <ProtectedRoute allowedRoles={["Admin"]}>
+                                    <Orders/>
                                 </ProtectedRoute>
                             ),
                         },

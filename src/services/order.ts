@@ -46,6 +46,24 @@ const OrderService = {
         }
     },
 
+    async validate(id: string) {
+        try {
+            const response = await client().put(`/api/orders/validate/${id}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    async cancel(id: string) {
+        try {
+            const response = await client().put(`/api/orders/cancel/${id}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
 }
 
 export default OrderService;
