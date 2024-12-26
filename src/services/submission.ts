@@ -28,7 +28,7 @@ const SubmissionService = {
 
   async approve(id: string) {
     try {
-      const response = await client().put(`/admin/approve/${id}`)
+      const response = await client().put(`/api/admin/approve/${id}`)
       return response.data
     } catch (error) {
       throw error
@@ -37,7 +37,7 @@ const SubmissionService = {
 
   async reject(id: string) {
     try {
-      const response = await client().put(`/admin/reject/${id}`)
+      const response = await client().put(`/api/admin/reject/${id}`)
       return response.data
     } catch (error) {
       throw error
