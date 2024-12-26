@@ -4,7 +4,7 @@ import { useCart } from "../utils/cartContext"
 import toast from "react-hot-toast"
 
 const Shop = () => {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState<any[]>([])
   const { setCart } = useCart()
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const Shop = () => {
     fetchProducts()
   }, [])
 
-  const handleOrder = product => {
+  const handleOrder = (product: any) => {
     setCart(prevCart => {
       const existingProduct = prevCart.find(item => item.id === product.id)
       if (existingProduct) {

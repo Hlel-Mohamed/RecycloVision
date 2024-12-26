@@ -15,7 +15,6 @@ import {
 } from "chart.js"
 import { NavLink } from "react-router-dom"
 import DashboardService from "../services/dashboard"
-import React from "react"
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 

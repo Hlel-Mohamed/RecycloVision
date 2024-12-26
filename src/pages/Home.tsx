@@ -13,7 +13,6 @@ import User from "../services/users"
 import { toast } from "react-hot-toast"
 import { NavLink } from "react-router-dom"
 import { format } from "date-fns"
-import React from "react"
 
 const Home = () => {
   const [userCoins, setUserCoins] = useState(0)

@@ -17,7 +17,6 @@ import Dashboard from "./pages/Dashboard"
 import Shop from "./pages/Shop"
 import Cart from "./pages/Cart"
 import { CartProvider } from "./utils/cartContext"
-import React from "react"
 
 function Layout() {
   return (
