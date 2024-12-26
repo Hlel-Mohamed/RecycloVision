@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 
 type Order = {
     id: string;
-    items: { productId: string; quantity: number; price: number; coins: number }[];
+    items: { productId: string; name:string; quantity: number; price: number; coins: number }[];
     totalAmount: number;
     totalCoins: number;
     user: {
@@ -78,8 +78,10 @@ function AdminOrders() {
                 <tbody>
                 {orders.map((order) => (
                     <tr key={order.id}>
-                        <td className="border px-4 py-2">{order.user.firstName} {order.user.lastName}</td>
-                        <td className="border px-4 py-2">{order.items.map(item => `${item.productId} (x${item.quantity})`).join(', ')}</td>
+                        <td className="border px-4 py-2">
+                            {order.user ? `${order.user.firstName} ${order.user.lastName}` : 'Unknown User'}
+                        </td>
+                        <td className="border px-4 py-2">{order.items.map(item => `${item.name}`).join(', ')}</td>
                         <td className="border px-4 py-2">{order.totalAmount}</td>
                         <td className="border px-4 py-2">{order.totalCoins}</td>
                         <td className="border px-4 py-2">{order.status}</td>
