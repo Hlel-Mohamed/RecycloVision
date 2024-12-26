@@ -40,83 +40,61 @@ const Navbar = () => {
                 alt="navlogo"
                 className="h-10 cursor-pointer"
             />
-            <div className="flex flex-row pr-7 mr-7">
-                {role === "Recycler" && (
-                    <NavLink
-                        to="/home"
-                        className={({isActive}) =>
-                            isActive
-                                ? "btn mr-3 bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
-                                : "btn mr-3 bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
-                        }
-                    >
-                        Home
-                    </NavLink>
+            {role === "Recycler" && (
+                <div className="flex flex-row pr-7 mr-7">
+                    {role === "Recycler" && (
+                        <NavLink
+                            to="/home"
+                            className={({isActive}) =>
+                                isActive
+                                    ? "btn mr-3 bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
+                                    : "btn mr-3 bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
+                            }
+                        >
+                            Home
+                        </NavLink>
 
-                )}
-                {role === "Recycler" && (
-                    <NavLink
-                        to="/shop"
-                        className={({isActive}) =>
-                            isActive
-                                ? "btn mr-3 bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
-                                : "btn mr-3 bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
-                        }
-                    >
-                        Shop
-                    </NavLink>
+                    )}
+                    {role === "Recycler" && (
+                        <NavLink
+                            to="my-submissions"
+                            className={({isActive}) =>
+                                isActive
+                                    ? "btn mr-3 bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
+                                    : "btn mr-3 bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
+                            }
+                        >
+                            My Submissions
+                        </NavLink>
+                    )}
+                    {role === "Recycler" && (
+                        <NavLink
+                            to="/shop"
+                            className={({isActive}) =>
+                                isActive
+                                    ? "btn mr-3 bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
+                                    : "btn mr-3 bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
+                            }
+                        >
+                            Shop
+                        </NavLink>
 
-                )}
-                {role === "Admin" && (
-                    <NavLink
-                        to="/dashboard"
-                        className={({isActive}) =>
-                            isActive
-                                ? "btn mr-3 bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
-                                : "btn mr-3 bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
-                        }
-                    >
-                        Dashboard
-                    </NavLink>
-                )}
-                {role === "Recycler" && (
-                    <NavLink
-                        to="/image-recognition"
-                        className={({isActive}) =>
-                            isActive
-                                ? "btn mr-3 bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
-                                : "btn mr-3 bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
-                        }
-                    >
-                        Image Recognition
-                    </NavLink>
-                )}
+                    )}
+                    {role === "Recycler" && (
+                        <NavLink
+                            to="/image-recognition"
+                            className={({isActive}) =>
+                                isActive
+                                    ? "btn mr-3 bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
+                                    : "btn mr-3 bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
+                            }
+                        >
+                            Image Recognition
+                        </NavLink>
+                    )}
 
-                {role === "Admin" && (
-                    <NavLink
-                        to="/users"
-                        className={({isActive}) =>
-                            isActive
-                                ? "btn mr-3 bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
-                                : "btn mr-3 bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
-                        }
-                    >
-                        Users
-                    </NavLink>
-                )}
-                {role === "Admin" && (
-                    <NavLink
-                        to="/submissions"
-                        className={({isActive}) =>
-                            isActive
-                                ? "btn mr-3 bg-[#1f9d9a] text-white shadow-none hover:bg-[#1f9d9a] !border-none"
-                                : "btn mr-3 bg-transparent hover:text-white hover:bg-[#1f9d9a] shadow-none !border-none"
-                        }
-                    >
-                        Submissions
-                    </NavLink>
-                )}
-            </div>
+                </div>
+            )}
             <div>
                 {isLoggedIn ? (
                     <div className="!h-full">
@@ -156,10 +134,13 @@ const Navbar = () => {
                                 </li>
                             </ul>
                         </div>
-                        <NavLink to="/cart"
-                                 className="btn bg-transparent hover:bg-transparent shadow-none !border-none">
-                            <RiShoppingCart2Line className="h-6 w-6"/>
-                        </NavLink>
+                        {role === "Recycler" && (
+                            <NavLink to="/cart"
+                                     className="btn bg-transparent hover:bg-transparent shadow-none !border-none">
+                                <RiShoppingCart2Line className="h-6 w-6"/>
+                            </NavLink>
+                        )
+                        }
                     </div>
                 ) : (
                     <div className="flex gap-4">

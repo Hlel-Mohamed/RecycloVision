@@ -5,9 +5,10 @@ import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import Users from "./pages/users"
+import MySubmissions from "./pages/MySubmissions"
 import Sidebar from "./components/Sidebar"
 import Authcontext from "./utils/context"
-import {useState} from "react"
+import {useContext, useState} from "react"
 import ImageRecognition from "./pages/ImageRecognition.tsx";
 import ProtectedRoute from "./utils/protectedRoute.tsx"
 import Profile from "./pages/Profile";
@@ -27,8 +28,13 @@ function Layout() {
 }
 
 function Main() {
+    const context = useContext(Authcontext)
+    const role = context.user.role
     return (
         <div className="flex h-screen justify-between">
+            {role === "Admin" && (
+                <Sidebar/>
+            )}
             <Outlet/>
         </div>
     )
@@ -87,13 +93,19 @@ function App() {
                             element:
                                     <Cart/>,
                         },
-                        {path: "/hr", element: <div>HR page</div>},
-                        {path: "/admin", element: <div>admin page</div>},
                         {
                             path: "/users",
                             element: (
                                 <ProtectedRoute allowedRoles={["Admin"]}>
                                     <Users/>
+                                </ProtectedRoute>
+                            ),
+                        },
+                        {
+                            path: "/my-submissions",
+                            element: (
+                                <ProtectedRoute allowedRoles={["Recycler"]}>
+                                    <MySubmissions />
                                 </ProtectedRoute>
                             ),
                         },
