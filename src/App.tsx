@@ -5,15 +5,18 @@ import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import Users from "./pages/users"
+import MySubmissions from "./pages/MySubmissions"
 import Sidebar from "./components/Sidebar"
 import Authcontext from "./utils/context"
-import {useState} from "react"
+import {useContext, useState} from "react"
 import ImageRecognition from "./pages/ImageRecognition.tsx";
 import ProtectedRoute from "./utils/protectedRoute.tsx"
 import Profile from "./pages/Profile";
 import Submissions from "./pages/Submissions";
 import Dashboard from "./pages/Dashboard.tsx"
 import Shop from "./pages/Shop.tsx"
+import Cart from "./pages/Cart.tsx"
+import {CartProvider} from "./utils/cartContext";
 
 function Layout() {
     return (
@@ -25,9 +28,13 @@ function Layout() {
 }
 
 function Main() {
+    const context = useContext(Authcontext)
+    const role = context.user.role
     return (
         <div className="flex h-screen justify-between">
-            <Sidebar/>
+            {role === "Admin" && (
+                <Sidebar/>
+            )}
             <Outlet/>
         </div>
     )
@@ -78,15 +85,27 @@ function App() {
                         },
                         {
                             path: "/shop",
-                            element: <Shop/>,
+                            element:
+                                <Shop/>,
                         },
-                        {path: "/hr", element: <div>HR page</div>},
-                        {path: "/admin", element: <div>admin page</div>},
+                        {
+                            path: "/cart",
+                            element:
+                                    <Cart/>,
+                        },
                         {
                             path: "/users",
                             element: (
                                 <ProtectedRoute allowedRoles={["Admin"]}>
                                     <Users/>
+                                </ProtectedRoute>
+                            ),
+                        },
+                        {
+                            path: "/my-submissions",
+                            element: (
+                                <ProtectedRoute allowedRoles={["Recycler"]}>
+                                    <MySubmissions />
                                 </ProtectedRoute>
                             ),
                         },
@@ -110,7 +129,6 @@ function App() {
                             path: "/me",
                             element: <Profile/>
                         },
-                        {path: "/cart", element: <div>Cart</div>},
                         {
                             path: "/image-recognition",
                             element: (
@@ -129,8 +147,10 @@ function App() {
     return (
         <>
             <Authcontext.Provider value={{user, login, logout}}>
-                <Toaster/>
-                <RouterProvider router={router}/>
+                <CartProvider>
+                    <Toaster/>
+                    <RouterProvider router={router}/>
+                </CartProvider>
             </Authcontext.Provider>
         </>
     )

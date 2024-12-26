@@ -36,6 +36,15 @@ const SubmissionService = {
             throw error;
         }
     },
+
+    async getUserSubmissions(userId: string) {
+        try {
+            const response = await client().get(`/api/submissions/user/${userId}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 export default SubmissionService;

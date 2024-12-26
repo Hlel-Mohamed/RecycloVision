@@ -142,25 +142,45 @@ function ImageRecognition() {
     }
   }
 
+  /**
+   * Converts a data URL to a Blob.
+   * @param {string} dataUrl - The data URL to convert.
+   * @returns {Promise<Blob>} - A promise that resolves to a Blob.
+   */
+  const dataUrlToBlob = async (dataUrl: string): Promise<Blob> => {
+    const response = await fetch(dataUrl)
+    return await response.blob()
+  }
+
   const submitForApproval = async () => {
     const storedUser = JSON.parse(localStorage.getItem("user") || "{}")
     const submission = {
       items: selectedGuesses,
-      images: history.map(image => {
-        const canvas = document.createElement("canvas")
-        const img = new Image()
-        img.src = image
-        canvas.width = img.width
-        canvas.height = img.height
-        const ctx = canvas.getContext("2d")
-        ctx?.drawImage(img, 0, 0)
-        return canvas.toDataURL("image/jpeg")
-      }),
+      images: await Promise.all(
+        history.map(async image => {
+          if (image.startsWith("data:image")) {
+            const blob = await dataUrlToBlob(image)
+            image = URL.createObjectURL(blob)
+          }
+          const canvas = document.createElement("canvas")
+          const img = new Image()
+          img.src = image
+          await new Promise(resolve => {
+            img.onload = resolve
+          })
+          canvas.width = img.width
+          canvas.height = img.height
+          const ctx = canvas.getContext("2d")
+          ctx?.drawImage(img, 0, 0)
+          return canvas.toDataURL("image/jpeg")
+        })
+      ),
       points: totalPoints,
       userId: storedUser,
     }
 
     try {
+      console.log(submission)
       await SubmissionService.submit(submission)
       toast.success("Submission successful. Awaiting admin approval.")
     } catch (error) {

@@ -1,50 +1,39 @@
-const products = [
-  {
-    id: 1,
-    name: "Reusable Water Bottle",
-    price: 20,
-    coins: 50,
-    description: "Eco-friendly reusable water bottle made of stainless steel.",
-    image: "shop/bottle.jpg",
-  },
-  {
-    id: 2,
-    name: "Organic Cotton Tote Bag",
-    price: 15,
-    coins: 30,
-    description: "Durable tote bag made from 100% organic cotton.",
-    image: "shop/totebag.jpeg",
-  },
-  {
-    id: 3,
-    name: "Bamboo Toothbrush",
-    price: 5,
-    coins: 10,
-    description: "Eco-friendly toothbrush made from bamboo.",
-    image: "shop/bamboo.jpg",
-  },
-  {
-    id: 4,
-    name: "Solar-Powered Charger",
-    description: "Charge your devices using renewable solar energy.",
-    price: 40,
-    coins: 100,
-    image: "shop/solarbank.jpg",
-  },
-  {
-    id: 5,
-    name: "Recycled Notebook",
-    description:
-      "A notebook made from recycled paper, perfect for jotting ideas sustainably.",
-    price: 10,
-    coins: 20,
-    image: "shop/notebook.jpg",
-  },
-]
+import { useEffect, useState } from "react"
+import ProductService from "../services/product"
+import { useCart } from "../utils/cartContext"
+import toast from "react-hot-toast"
 
 const Shop = () => {
-  const handleOrder = (productId: number) => {
-    alert(`Order placed for product ID: ${productId}`)
+  const [products, setProducts] = useState([])
+  const { setCart } = useCart()
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await ProductService.getAllProducts()
+        setProducts(response)
+      } catch (error) {
+        console.error("Error fetching products:", error)
+      }
+    }
+
+    fetchProducts()
+  }, [])
+
+  const handleOrder = product => {
+    setCart(prevCart => {
+      const existingProduct = prevCart.find(item => item.id === product.id)
+      if (existingProduct) {
+        return prevCart.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      } else {
+        return [...prevCart, { ...product, quantity: 1 }]
+      }
+    })
+    toast.success(`Order placed for product: ${product.name}`)
   }
 
   return (
@@ -78,7 +67,7 @@ const Shop = () => {
                 Coins: {product.coins}
               </p>
               <button
-                onClick={() => handleOrder(product.id)}
+                onClick={() => handleOrder(product)}
                 className="btn btn-success text-white mt-4 w-full"
               >
                 Order Now
