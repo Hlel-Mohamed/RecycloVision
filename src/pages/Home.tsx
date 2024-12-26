@@ -13,6 +13,7 @@ import User from "../services/users"
 import { toast } from "react-hot-toast"
 import { NavLink } from "react-router-dom"
 import { format } from "date-fns"
+import React from "react"
 
 const Home = () => {
   const [userCoins, setUserCoins] = useState(0)
@@ -95,7 +96,10 @@ const Home = () => {
               <div>
                 <h3 className="text-xl">Coins</h3>
                 <p className="text-lg">{userCoins} coins</p>
-                <NavLink to={"/shop"} className="btn btn-primary text-white mt-4 flex items-center gap-2 sm:w-auto mx-auto">
+                <NavLink
+                  to={"/shop"}
+                  className="btn btn-primary text-white mt-4 flex items-center gap-2 sm:w-auto mx-auto"
+                >
                   <FaArrowRight />
                   View Products
                 </NavLink>

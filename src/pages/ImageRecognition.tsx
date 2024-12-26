@@ -5,6 +5,7 @@ import * as tf from "@tensorflow/tfjs"
 import "@tensorflow/tfjs-backend-webgl"
 import SubmissionService from "../services/submission"
 import { toast } from "react-hot-toast"
+import React from "react"
 
 /**
  * Type definition for a recyclable item.
@@ -21,7 +22,7 @@ type RecyclableItem = {
  * It allows users to identify recyclable items in images and keeps track of identified items and points.
  * @component
  */
-function ImageRecognition() {
+const ImageRecognition = () => {
   const [isModelLoading, setIsModelLoading] = useState(false)
   const [model, setModel] = useState<mobilenet.MobileNet | null>(null)
   const [imageURL, setImageURL] = useState<string | null>(null)
